@@ -62,8 +62,8 @@ void RC_set_header(RCHeaders *h, const char *name, const char *value) {
     if (h->len == h->cap) {
         h->cap *= 2;
         RCHeader **new_headers = (RCHeader **)calloc(h->cap, sizeof(RCHeader *));
-        memset(h->headers, 0, sizeof(RCHeader *) * h->cap);
-        memcpy(new_headers, h->headers, h->len);
+        for (size_t i = 0; i < h->len; i++)
+            new_headers[i] = h->headers[i]; 
         free(h->headers);
         h->headers = new_headers;
     }
